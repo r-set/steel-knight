@@ -1,6 +1,6 @@
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 
 public class GameSession : MonoBehaviour
@@ -21,6 +21,7 @@ public class GameSession : MonoBehaviour
     [Header("Sound")]
     [SerializeField] private Toggle _soundToggle;
     private bool isSoundOff = false;
+    private string soundKey = "SoundState";
 
     private void Start()
     {
@@ -29,8 +30,14 @@ public class GameSession : MonoBehaviour
 
         UpdateUIText();
 
+        if (PlayerPrefs.HasKey(soundKey))
+        {
+            isSoundOff = PlayerPrefs.GetInt(soundKey) == 1;
+        }
+
         _soundToggle.onValueChanged.AddListener(ToggleSound);
         _soundToggle.isOn = isSoundOff;
+        SetAudioVolume(isSoundOff);
     }
 
     private void UpdateUIText()
@@ -43,14 +50,15 @@ public class GameSession : MonoBehaviour
     {
         isSoundOff = isSoundDisabled;
 
-        if (isSoundOff)
-        {
-            AudioListener.volume = 0.0f;
-        }
-        else
-        {
-            AudioListener.volume = 1.0f;
-        }
+        PlayerPrefs.SetInt(soundKey, isSoundOff ? 1 : 0);
+        PlayerPrefs.Save();
+
+        SetAudioVolume(isSoundOff);
+    }
+
+    private void SetAudioVolume(bool isMuted)
+    {
+        AudioListener.volume = isMuted ? 0.0f : 1.0f;
     }
 
     public void ProcessPlayerDeath()

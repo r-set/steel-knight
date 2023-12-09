@@ -50,10 +50,6 @@ public class StageManager : MonoBehaviour
             string sceneName = "Stage" + level;
             LoadSceneWithButtonSFX(sceneName);
         }
-        else
-        {
-            Debug.LogWarning("Invalid level number");
-        }
     }
 
     public void QuitGame()
