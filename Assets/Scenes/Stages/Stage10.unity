@@ -25120,7 +25120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8142557102045647473, guid: 05643240785c9a744b649ce9adfe7121, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.3
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8142557102045647473, guid: 05643240785c9a744b649ce9adfe7121, type: 3}
       propertyPath: m_LocalPosition.z
@@ -25181,7 +25181,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2053645279775735360, guid: 561c1861bd2d93a42ac58f2d98c8e0b9, type: 3}
       propertyPath: m_Name
-      value: Undead (Enemy) (1)
+      value: Undead (Enemy)
       objectReference: {fileID: 0}
     - target: {fileID: 5550201242443448295, guid: 561c1861bd2d93a42ac58f2d98c8e0b9, type: 3}
       propertyPath: m_LocalPosition.x

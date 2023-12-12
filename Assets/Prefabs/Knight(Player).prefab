@@ -256,6 +256,7 @@ MonoBehaviour:
   _jumpGravityScale: 1
   _fallGravityScale: 3
   _distanceCheckGround: 1.5
+  _wallSlidingForce: 5
   _attackRange: 2.5
   deathSFX: {fileID: 8300000, guid: 8ac59a08449d41d4ba1629a267416757, type: 3}
   _gameSession: {fileID: 310238981401162594, guid: 7da54dd697c4f5249bd4ffce49e0b14f, type: 3}

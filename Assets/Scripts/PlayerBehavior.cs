@@ -12,6 +12,7 @@ public class PlayerBehavior : MonoBehaviour
     [SerializeField] private float _jumpGravityScale = 1f;
     [SerializeField] private float _fallGravityScale = 3f;
     [SerializeField] private float _distanceCheckGround = 1.5f;
+    [SerializeField] private float _wallSlidingForce = 5f;
 
     [Header("Attack")]
     [SerializeField] private float _attackRange = 2.5f;
@@ -64,6 +65,7 @@ public class PlayerBehavior : MonoBehaviour
             OnAlive();
             OnClimb();
             GroundCheck();
+            WallSlide();
             GravityScale();
             Run();
             Jump();
@@ -175,6 +177,25 @@ public class PlayerBehavior : MonoBehaviour
         _isGrounded = false;
     }
 
+    private void WallSlide()
+    {
+        bool isTouchingWall = _bodyCollider.IsTouchingLayers(_groundMask);
+
+        if (isTouchingWall && !_isGrounded && _rb.velocity.y < 0)
+        {
+            Vector2 rightBoxPosition = transform.position + new Vector3(_bodyCollider.size.x / 2f, 0f, 0f);
+            Vector2 leftBoxPosition = transform.position + new Vector3(-_bodyCollider.size.x / 2f, 0f, 0f);
+
+            bool wallOnRight = Physics2D.OverlapBox(rightBoxPosition, _bodyCollider.size, 0f, _groundMask);
+            bool wallOnLeft = Physics2D.OverlapBox(leftBoxPosition, _bodyCollider.size, 0f, _groundMask);
+
+            if (wallOnRight || wallOnLeft)
+            {
+                _rb.velocity = new Vector2(_rb.velocity.x, -_wallSlidingForce);
+            }
+        }
+    }
+
     private void OnClimb()
     {
         if (_clambCheckCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
@@ -218,8 +239,10 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C))
         {
+            float delayAttack = 0.25f;
+
             _myAnimator.SetTrigger("Attack");
-            Invoke(nameof(AttackEnemy), 0.25f);
+            Invoke(nameof(AttackEnemy), delayAttack);
         }
     }
 
@@ -250,11 +273,13 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (_bodyCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Spikes")))
         {
+            float delayDeath = 2f;
+
             _isAlive = false;
             _myAnimator.SetTrigger("Die");
             _myAnimator.SetBool("isAlive", _isAlive);
             _audioSource.PlayOneShot(deathSFX);
-            Invoke(nameof(OnDie), 2f);
+            Invoke(nameof(OnDie), delayDeath);
         }
     }
 }

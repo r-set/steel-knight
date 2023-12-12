@@ -83,11 +83,12 @@ public class EnemiesBehavior : MonoBehaviour
         _enemyAnimator.SetBool("isAlive", true);
     }
 
-
     public void TakeDamage()
     {
         if (!_isDying && _isAlive)
         {
+            float dealyEnemyDeath = 0.25f;
+
             _isDying = true;
             _isAlive = false;
             _enemyAnimator.SetBool("isAlive", _isAlive);
@@ -96,7 +97,7 @@ public class EnemiesBehavior : MonoBehaviour
             _enemyRb.gravityScale = 0f;
             _enemyRb.constraints = RigidbodyConstraints2D.FreezeAll;
 
-            Invoke(nameof(PlayDeathAnimation), 0.25f);
+            Invoke(nameof(PlayDeathAnimation), dealyEnemyDeath);
         }
     }
 
