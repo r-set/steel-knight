@@ -44,6 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d208a8ae311da42894927aa453122e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stage1Button: {fileID: 0}
+  _stage2Button: {fileID: 0}
+  _stage3Button: {fileID: 0}
+  _stage4Button: {fileID: 0}
+  _stage5Button: {fileID: 0}
+  _stage6Button: {fileID: 0}
+  _stage7Button: {fileID: 0}
+  _stage8Button: {fileID: 0}
+  _stage9Button: {fileID: 0}
+  _stage10Button: {fileID: 0}
   _buttonSFX: {fileID: 8300000, guid: 427bf0cb5963f50419503da64f6ef331, type: 3}
-  _gameSFX: {fileID: 8300000, guid: 38f0c99b81fe33c4db44839fbda442ef, type: 3}
-  _menuSFX: {fileID: 8300000, guid: 1ea93d2ec74320f4dbcf8efcf9036eff, type: 3}
+  _gameSession: {fileID: 310238981401162594, guid: 7da54dd697c4f5249bd4ffce49e0b14f, type: 3}

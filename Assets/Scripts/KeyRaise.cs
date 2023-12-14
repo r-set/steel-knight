@@ -25,7 +25,7 @@ public class KeyRaise : MonoBehaviour
         if (other.CompareTag("Player") && !_wasCollected && _gameSession.key < _gameSession.needKeys)
         {
             _wasCollected = true;
-            _gameSession.AddToScore(_quantityKeyRaise);
+            _gameSession.AddToKey(_quantityKeyRaise);
             _audioSource.PlayOneShot(_keyRaiseSFX);
             Destroy(gameObject);
         }

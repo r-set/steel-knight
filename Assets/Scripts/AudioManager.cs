@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -8,7 +9,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _menuAudio;
 
     [Header("Menu Sound")]
-    [SerializeField] private string[] _menuScenes = { "MainMenu", "Stages" };
+    [SerializeField] private string[] _menuScenes = { "MainMenu", "Stages", "Control" };
+
+    [Header("AudioToggle")]
+    [SerializeField] private Toggle _soundToggle;
+    private bool isSoundOff = false;
+    private string soundKey = "SoundState";
 
     private AudioSource _audioSource;
 
@@ -18,9 +24,36 @@ public class AudioManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    private void Start()
+    {
+         if (PlayerPrefs.HasKey(soundKey))
+        {
+            isSoundOff = PlayerPrefs.GetInt(soundKey) == 1;
+        }
+
+        _soundToggle.onValueChanged.AddListener(ToggleSound);
+        _soundToggle.isOn = isSoundOff;
+        SetAudioVolume(isSoundOff);
+    }
+
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void ToggleSound(bool isSoundDisabled)
+    {
+        isSoundOff = isSoundDisabled;
+
+        PlayerPrefs.SetInt(soundKey, isSoundOff ? 1 : 0);
+        PlayerPrefs.Save();
+
+        SetAudioVolume(isSoundOff);
+    }
+
+    private void SetAudioVolume(bool isMuted)
+    {
+        AudioListener.volume = isMuted ? 0.0f : 1.0f;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

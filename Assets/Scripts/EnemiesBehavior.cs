@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class EnemiesBehavior : MonoBehaviour
 {
-
     [Header("Parameters")]
     [SerializeField] private float _moveSpeed = 1f;
     [SerializeField] private float _distanceCheckPlayer = 3f;
@@ -105,16 +104,17 @@ public class EnemiesBehavior : MonoBehaviour
     {
         _enemyAnimator.SetTrigger("Die");
         _audioSource.PlayOneShot(enemyDeathSFX);
-        
+
+        _enemyRb.velocity = Vector2.zero;
+        _bodyCollider.enabled = false;
+        _groundCollider.enabled = false;
+
         Invoke(nameof(OnDeathAnimationComplete), 1.5f);
     }
 
     public void OnDeathAnimationComplete()
     {
-        _enemyRb.velocity = Vector2.zero;
         _enemyRb.bodyType = RigidbodyType2D.Kinematic;
-        _bodyCollider.enabled = false;
-        _groundCollider.enabled = false;
         _isDying = false;
         _enemyAnimator.enabled = false;
     }

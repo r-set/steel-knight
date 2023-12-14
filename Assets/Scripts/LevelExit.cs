@@ -5,25 +5,26 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
-    [Header("Delay")]
-    [SerializeField] private float _levelLoadDelay = 1f;
-
     [Header("Text")]
     [SerializeField] private TMP_Text _exitText;
 
+    [Header("Next Level")]
+    [SerializeField] private string _nameNextStage;
+    [SerializeField] private int _nextCurrentLevel;
+
     [Header("Scripts")]
     [SerializeField] private GameSession _gameSession;
+    [SerializeField] private StageManager _stageManager;
 
     [Header("Audio")]
-    [SerializeField] AudioClip doorOpenSFX;
+    [SerializeField] private AudioClip _doorOpenSFX;
 
     private bool _isKeyCollect = false;
-    private int _currentSceneIndex;
     private TMP_Text _exitTextInstance;
     private Animator _doorAnimator;
     private Camera _camera;
     private AudioSource _audioSource;
- 
+
     private void Awake()
     {
         _camera = Camera.main;
@@ -31,9 +32,9 @@ public class LevelExit : MonoBehaviour
         _doorAnimator = GetComponent<Animator>();
     }
 
+
     private void Start()
     {
-        _currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         _exitTextInstance = _exitText;
         _exitTextInstance.gameObject.SetActive(false);
     }
@@ -49,12 +50,25 @@ public class LevelExit : MonoBehaviour
         {
             if (_isKeyCollect)
             {
-                StartCoroutine(LoadNextLevelWithDelay());
+                OpenDoor();
             }
             else
             {
                 int keysNeeded = Mathf.Max(0, _gameSession.needKeys - _gameSession.key);
-                _exitTextInstance.text = $"You need {keysNeeded} keys";
+
+                if (keysNeeded == 0)
+                {
+                    _exitTextInstance.text = $"You need {keysNeeded} keys";
+                }
+                else if (keysNeeded >= 1)
+                {
+                    _exitTextInstance.text = $"You need {keysNeeded} key";
+                }
+                else
+                {
+                    _exitTextInstance.text = $"Door open";
+                }
+
                 _exitTextInstance.gameObject.SetActive(true);
             }
         }
@@ -68,18 +82,21 @@ public class LevelExit : MonoBehaviour
         }
     }
 
-    private void LoadNextLevel()
-    {
-        int nextSceneIndex = (_currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
-        SceneManager.LoadScene(nextSceneIndex);
-    }
-
-    private IEnumerator LoadNextLevelWithDelay()
+    private void OpenDoor()
     {
         _doorAnimator.SetTrigger("Open");
         _gameSession.key = 0;
-        _audioSource.PlayOneShot(doorOpenSFX);
-        yield return new WaitForSecondsRealtime(_levelLoadDelay);
+
+        _audioSource.PlayOneShot(_doorOpenSFX);
+
         LoadNextLevel();
+    }
+
+    private void LoadNextLevel()
+    {
+        _stageManager.LoadScene(_nameNextStage);
+        _stageManager.currentLevel = _nextCurrentLevel;
+
+        _gameSession.SetCurrentLevel(_nextCurrentLevel);
     }
 }

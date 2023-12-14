@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 7649504024076831051}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.62, y: -2.51, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -250,14 +250,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13ca7266cc081e045ad5b18ee38af2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runSpeed: 8
-  _climbSpeed: 4
-  _jumpForce: 8
+  _runSpeed: 5
+  _climbSpeed: 2.5
+  _jumpForce: 6.5
   _jumpGravityScale: 1
-  _fallGravityScale: 3
-  _distanceCheckGround: 1.5
-  _wallSlidingForce: 5
+  _fallGravityScale: 2
+  _distanceCheckGround: 1.6
+  _wallSlidingForce: 6
   _attackRange: 2.5
   deathSFX: {fileID: 8300000, guid: 8ac59a08449d41d4ba1629a267416757, type: 3}
+  swordSwingSFX: {fileID: 8300000, guid: 4870aec813d40804fb243024c6d94eb1, type: 3}
   _gameSession: {fileID: 310238981401162594, guid: 7da54dd697c4f5249bd4ffce49e0b14f, type: 3}
   _enemy: {fileID: 3167457774427546080, guid: 561c1861bd2d93a42ac58f2d98c8e0b9, type: 3}

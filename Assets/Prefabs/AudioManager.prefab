@@ -46,4 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameAudio: {fileID: 8300000, guid: 38f0c99b81fe33c4db44839fbda442ef, type: 3}
   _menuAudio: {fileID: 8300000, guid: 1ea93d2ec74320f4dbcf8efcf9036eff, type: 3}
-  _menuScene: 0
+  _menuScenes:
+  - MainMenu
+  - Stages
+  _soundToggle: {fileID: 0}

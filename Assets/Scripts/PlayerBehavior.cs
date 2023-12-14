@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 public class PlayerBehavior : MonoBehaviour
 {
     [Header("Move")]
-    [SerializeField] private float _runSpeed = 8f;
-    [SerializeField] private float _climbSpeed = 4f;
+    [SerializeField] private float _runSpeed = 5f;
+    [SerializeField] private float _climbSpeed = 2.5f;
 
     [Header("Jump")]
-    [SerializeField] private float _jumpForce = 8f;
+    [SerializeField] private float _jumpForce = 6.5f;
     [SerializeField] private float _jumpGravityScale = 1f;
-    [SerializeField] private float _fallGravityScale = 3f;
-    [SerializeField] private float _distanceCheckGround = 1.5f;
+    [SerializeField] private float _fallGravityScale = 2f;
+    [SerializeField] private float _distanceCheckGround = 1.6f;
     [SerializeField] private float _wallSlidingForce = 5f;
 
     [Header("Attack")]
@@ -19,6 +19,7 @@ public class PlayerBehavior : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] AudioClip deathSFX;
+    [SerializeField] AudioClip swordSwingSFX;
 
     [Header("Scripts")]
     [SerializeField] private GameSession _gameSession;
@@ -43,6 +44,7 @@ public class PlayerBehavior : MonoBehaviour
     private bool _isJump = false;
     private bool _isGrounded = false;
     private bool _isClimbed = false;
+    private bool _isAttacking = false;
     private bool _playerHasHorizontalSpeed = false;
     #endregion
 
@@ -63,14 +65,13 @@ public class PlayerBehavior : MonoBehaviour
         if (_isAlive)
         {
             OnAlive();
-            OnClimb();
             GroundCheck();
-            WallSlide();
-            GravityScale();
             Run();
             Jump();
+            GravityScale();
             FlipSprite();
-            Attack();
+            WallSlide();
+            OnClimb();
             Death();
         }
     }
@@ -90,11 +91,6 @@ public class PlayerBehavior : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        if (!_isAlive)
-        {
-            return;
-        }
-
         _moveInput = value.Get<Vector2>();
     }
 
@@ -110,7 +106,10 @@ public class PlayerBehavior : MonoBehaviour
             FlipSprite();
         }
 
-        _myAnimator.SetBool("isRun", _playerHasHorizontalSpeed);
+        if (_isGrounded)
+        {
+            _myAnimator.SetBool("isRun", _playerHasHorizontalSpeed);
+        }
     }
 
     private void FlipSprite()
@@ -125,11 +124,6 @@ public class PlayerBehavior : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if (!_isAlive)
-        {
-            return;
-        }
-
         if (_isGrounded)
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
@@ -140,7 +134,6 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (_moveInput.y > 0 && _isGrounded)
         {
-            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
             _myAnimator.SetBool("isRun", false);
         }
 
@@ -226,24 +219,27 @@ public class PlayerBehavior : MonoBehaviour
 
     public void OnAttack(InputValue value)
     {
-        if (!_isAlive)
+        if (!_isAttacking)
         {
-            return;
+            Attack();
         }
-
-        _myAnimator.SetTrigger("Attack");
-        AttackEnemy();
     }
 
     private void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            float delayAttack = 0.25f;
+        _isAttacking = true;
+        float delayAttack = 0.4f;
 
-            _myAnimator.SetTrigger("Attack");
-            Invoke(nameof(AttackEnemy), delayAttack);
-        }
+        _myAnimator.SetTrigger("Attack");
+        _audioSource.PlayOneShot(swordSwingSFX);
+        AttackEnemy();
+
+        Invoke(nameof(ResetAttack), delayAttack);
+    }
+
+    private void ResetAttack()
+    {
+        _isAttacking = false;
     }
 
     private void AttackEnemy()
@@ -257,14 +253,13 @@ public class PlayerBehavior : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, _attackRange, _enemyMask);
 
-
         if (hit.collider != null)
         {
-            EnemiesBehavior enemy = hit.collider.GetComponent<EnemiesBehavior>();
+            _enemy = hit.collider.GetComponent<EnemiesBehavior>();
 
-            if (enemy != null)
+            if (_enemy != null)
             {
-                enemy.TakeDamage();
+                _enemy.TakeDamage();
             }
         }
     }
