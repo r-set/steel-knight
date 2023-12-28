@@ -86,7 +86,7 @@ public class EnemiesBehavior : MonoBehaviour
     {
         if (!_isDying && _isAlive)
         {
-            float dealyEnemyDeath = 0.25f;
+            float delayEnemyDeath = 0.25f;
 
             _isDying = true;
             _isAlive = false;
@@ -96,7 +96,7 @@ public class EnemiesBehavior : MonoBehaviour
             _enemyRb.gravityScale = 0f;
             _enemyRb.constraints = RigidbodyConstraints2D.FreezeAll;
 
-            Invoke(nameof(PlayDeathAnimation), dealyEnemyDeath);
+            Invoke(nameof(PlayDeathAnimation), delayEnemyDeath);
         }
     }
 

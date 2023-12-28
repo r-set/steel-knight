@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4382530119684294188}
   - component: {fileID: 2394673818205713247}
   - component: {fileID: 6739900650404386965}
+  - component: {fileID: 5706550151176146830}
   - component: {fileID: 7293630226296878975}
-  - component: {fileID: 1445086932926462675}
   - component: {fileID: 148446505467377340}
   - component: {fileID: 5057118616220460794}
   m_Layer: 8
@@ -138,6 +138,51 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &5706550151176146830
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7649504024076831051}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.15, y: 1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.6875, y: 2.9375}
+    newSize: {x: 0.27, y: 0.47}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.8}
+  m_EdgeRadius: 0
 --- !u!70 &7293630226296878975
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -173,41 +218,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.20991755, y: -0.004712105}
   m_Size: {x: 0.69134235, y: 2.962037}
   m_Direction: 0
---- !u!58 &1445086932926462675
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7649504024076831051}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.1661458, y: 1.130548}
-  serializedVersion: 2
-  m_Radius: 0.30497313
 --- !u!114 &148446505467377340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,9 +266,13 @@ MonoBehaviour:
   _jumpGravityScale: 1
   _fallGravityScale: 2
   _distanceCheckGround: 1.6
-  _wallSlidingForce: 6
+  _wallSlidingForce: 5
   _attackRange: 2.5
   deathSFX: {fileID: 8300000, guid: 8ac59a08449d41d4ba1629a267416757, type: 3}
   swordSwingSFX: {fileID: 8300000, guid: 4870aec813d40804fb243024c6d94eb1, type: 3}
-  _gameSession: {fileID: 310238981401162594, guid: 7da54dd697c4f5249bd4ffce49e0b14f, type: 3}
+  _gameSession: {fileID: 0}
   _enemy: {fileID: 3167457774427546080, guid: 561c1861bd2d93a42ac58f2d98c8e0b9, type: 3}
+  horizontalAxis: Horizontal
+  verticalAxis: Vertical
+  jumpButton: Jump
+  attackButton: Attack

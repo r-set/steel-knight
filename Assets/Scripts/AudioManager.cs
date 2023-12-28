@@ -36,6 +36,22 @@ public class AudioManager : MonoBehaviour
         SetAudioVolume(isSoundOff);
     }
 
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!isSoundOff)
+        {
+            SetAudioVolume(!hasFocus);
+        }
+    }
+
+    void OnApplicationPause(bool isPaused)
+    {
+        if (!isSoundOff)
+        {
+            SetAudioVolume(isPaused);
+        }
+    }
+
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -53,21 +69,8 @@ public class AudioManager : MonoBehaviour
 
     private void SetAudioVolume(bool isMuted)
     {
-        AudioListener.volume = isMuted ? 0.0f : 1.0f;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        string sceneName = scene.name;
-
-        if (IsMenuScene(sceneName))
-        {
-            PlayMenuAudio();
-        }
-        else
-        {
-            PlayGameAudio();
-        }
+        AudioListener.pause = isMuted;
+        AudioListener.volume = isMuted ? 0.0f : 0.5f;
     }
 
     private bool IsMenuScene(string sceneName)
@@ -82,20 +85,29 @@ public class AudioManager : MonoBehaviour
         return false;
     }
 
-    private void PlayGameAudio()
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (_audioSource != null && _gameAudio != null && !_audioSource.isPlaying)
+        string sceneName = scene.name;
+
+        if (IsMenuScene(sceneName))
+        {
+            _audioSource.clip = _menuAudio;
+
+            PlayAudio();
+        }
+        else
         {
             _audioSource.clip = _gameAudio;
-            _audioSource.Play();
+
+            PlayAudio();
         }
     }
 
-    private void PlayMenuAudio()
+    private void PlayAudio()
     {
-        if (_audioSource != null && _menuAudio != null && !_audioSource.isPlaying)
+        if (_audioSource != null && !_audioSource.isPlaying)
         {
-            _audioSource.clip = _menuAudio;
+            _audioSource.volume = 0.5f;
             _audioSource.Play();
         }
     }

@@ -1,7 +1,5 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LevelExit : MonoBehaviour
 {
@@ -20,6 +18,7 @@ public class LevelExit : MonoBehaviour
     [SerializeField] private AudioClip _doorOpenSFX;
 
     private bool _isKeyCollect = false;
+    private int _keysNeeded = 0;
     private TMP_Text _exitTextInstance;
     private Animator _doorAnimator;
     private Camera _camera;
@@ -31,7 +30,6 @@ public class LevelExit : MonoBehaviour
         _audioSource = _camera.GetComponent<AudioSource>();
         _doorAnimator = GetComponent<Animator>();
     }
-
 
     private void Start()
     {
@@ -54,19 +52,11 @@ public class LevelExit : MonoBehaviour
             }
             else
             {
-                int keysNeeded = Mathf.Max(0, _gameSession.needKeys - _gameSession.key);
+                _keysNeeded = _gameSession.needKeys - _gameSession.key;
 
-                if (keysNeeded == 0)
+                if (_keysNeeded <= _gameSession.needKeys)
                 {
-                    _exitTextInstance.text = $"You need {keysNeeded} keys";
-                }
-                else if (keysNeeded >= 1)
-                {
-                    _exitTextInstance.text = $"You need {keysNeeded} key";
-                }
-                else
-                {
-                    _exitTextInstance.text = $"Door open";
+                    _exitTextInstance.text = "Need keys" + " - " + _keysNeeded;
                 }
 
                 _exitTextInstance.gameObject.SetActive(true);

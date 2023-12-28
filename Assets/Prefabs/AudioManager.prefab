@@ -49,4 +49,5 @@ MonoBehaviour:
   _menuScenes:
   - MainMenu
   - Stages
+  - Contol
   _soundToggle: {fileID: 0}
