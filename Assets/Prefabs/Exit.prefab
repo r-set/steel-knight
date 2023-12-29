@@ -73,12 +73,12 @@ SpriteRenderer:
   m_SortingLayerID: -2068937575
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -879456576, guid: 853ec60bb72eb8d4c8b9735775e53b41, type: 3}
+  m_Sprite: {fileID: -683537291, guid: 853ec60bb72eb8d4c8b9735775e53b41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.9692308, y: 2.140625}
+  m_Size: {x: 1.9241165, y: 2.140625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -161,12 +161,12 @@ SpriteRenderer:
   m_SortingLayerID: -2068937575
   m_SortingLayer: 5
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1779122272, guid: 853ec60bb72eb8d4c8b9735775e53b41, type: 3}
+  m_Sprite: {fileID: -1493577293, guid: 853ec60bb72eb8d4c8b9735775e53b41, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.469353, y: 2.296875}
+  m_Size: {x: 2.5176957, y: 2.34375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -229,8 +229,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.46875, y: 2.390625}
-    newSize: {x: 2.469353, y: 2.296875}
+    oldSize: {x: 2.4090564, y: 2.28125}
+    newSize: {x: 2.5176957, y: 2.34375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -255,7 +255,6 @@ MonoBehaviour:
   _nextCurrentLevel: 0
   _gameSession: {fileID: 310238981401162594, guid: 7da54dd697c4f5249bd4ffce49e0b14f, type: 3}
   _stageManager: {fileID: 5141758654756494312, guid: bc25d2be64cabb94f9a88448bb756fea, type: 3}
-  _languageChanger: {fileID: 0}
   _doorOpenSFX: {fileID: 8300000, guid: a97056f3530a4b84093648336354971f, type: 3}
 --- !u!1 &4981112963724707515
 GameObject:
