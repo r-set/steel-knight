@@ -81,12 +81,7 @@ public class PlayerBehavior : MonoBehaviour
             WallSlide();
             OnClimb();
             Death();
-
-            OnMoveMobile();
-            OnJumpMobile();
-            OnAttackMobile();
-            OnClimbMobile();
-        }
+         }
     }
 
     private void OnAlive()
@@ -105,13 +100,6 @@ public class PlayerBehavior : MonoBehaviour
     public void OnMove(InputValue value)
     {
         _moveInput = value.Get<Vector2>();
-    }
-
-    public void OnMoveMobile()
-    {
-        _moveInput = new Vector2(SimpleInput.GetAxis(horizontalAxis), 0);
-
-        Run();
     }
 
     private void Run()
@@ -145,14 +133,6 @@ public class PlayerBehavior : MonoBehaviour
     public void OnJump(InputValue value)
     {
         if (_isGrounded)
-        {
-            _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
-        }
-    }
-
-    public void OnJumpMobile()
-    {
-        if (SimpleInput.GetButtonDown(jumpButton) && _isGrounded)
         {
             _rb.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }
@@ -245,43 +225,9 @@ public class PlayerBehavior : MonoBehaviour
         }
     }
 
-    private void OnClimbMobile()
-    {
-        _moveInput = new Vector2(0, SimpleInput.GetAxis(verticalAxis));
-
-        if (_clambCheckCollider.IsTouchingLayers(LayerMask.GetMask("Ladder")))
-        {
-            _rb.velocity = new Vector2(_rb.velocity.x, _moveInput.y * _climbSpeed);
-
-            bool playerHasVerticallSpeed = Mathf.Abs(_rb.velocity.y) > Mathf.Epsilon;
-            _myAnimator.SetBool("isClimb", playerHasVerticallSpeed);
-
-            if (!playerHasVerticallSpeed && !_isGrounded)
-            {
-                _myAnimator.SetBool("isClimbIdle", _isClimbed);
-            }
-
-            _isClimbed = true;
-        }
-        else
-        {
-            _isClimbed = false;
-            _myAnimator.SetBool("isClimb", _isClimbed);
-            _myAnimator.SetBool("isClimbIdle", _isClimbed);
-        }
-    }
-
     public void OnAttack(InputValue value)
     {
         if (!_isAttacking && _isGrounded)
-        {
-            Attack();
-        }
-    }
-
-    public void OnAttackMobile()
-    {
-        if (SimpleInput.GetButtonDown(attackButton) && !_isAttacking && _isGrounded)
         {
             Attack();
         }
